@@ -1,0 +1,304 @@
+definitions:
+  dto.CreateCameraDto:
+    properties:
+      box_id:
+        type: integer
+      ffmpeg_global_service_id:
+        type: string
+      ffmpeg_service_id:
+        type: string
+      name:
+        type: string
+      playback_service_id:
+        type: string
+      stream_uri:
+        type: string
+      streaming_protocol:
+        type: string
+    required:
+    - box_id
+    - name
+    - stream_uri
+    type: object
+  dto.UpdateCameraDto:
+    properties:
+      box_id:
+        type: integer
+      ffmpeg_global_service_id:
+        type: string
+      ffmpeg_service_id:
+        type: string
+      id:
+        type: integer
+      is_added_streamfile:
+        type: integer
+      is_connected:
+        type: integer
+      is_connected_streamfile:
+        type: integer
+      name:
+        type: string
+      playback_service_id:
+        type: string
+      status:
+        type: string
+      stream_endpoint:
+        type: string
+      stream_name:
+        type: string
+      stream_uri:
+        type: string
+      streaming_protocol:
+        type: string
+    required:
+    - box_id
+    - id
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  helpers.Response:
+    properties:
+      data:
+        type: object
+      error:
+        type: object
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  models.Camera:
+    properties:
+      box_id:
+        type: integer
+      created_at:
+        type: string
+      deleted_at:
+        $ref: '#/definitions/gorm.DeletedAt'
+      driver:
+        type: string
+      ffmpeg_global_service_id:
+        type: string
+      ffmpeg_service_id:
+        type: string
+      id:
+        type: integer
+      is_PTZ_enabled:
+        type: integer
+      is_connected:
+        type: integer
+      is_recording_set:
+        type: integer
+      location_id:
+        type: integer
+      name:
+        type: string
+      playback_service_id:
+        type: string
+      status:
+        type: string
+      stream_endpoint:
+        type: string
+      stream_name:
+        type: string
+      stream_uri:
+        type: string
+      streaming_protocol:
+        type: string
+      tenant_id:
+        type: integer
+      updated_at:
+        type: string
+      video_coding_standard:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/cameras:
+    get:
+      consumes:
+      - application/json
+      description: Get all camera
+      parameters:
+      - description: Box ID
+        in: query
+        name: box_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Camera'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      summary: Get all camera
+      tags:
+      - cameras
+    post:
+      consumes:
+      - application/json
+      description: Get all camera
+      parameters:
+      - description: CreateCameraDto
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateCameraDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Camera'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      summary: Get all camera
+      tags:
+      - cameras
+  /api/v1/cameras/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get single camera
+      parameters:
+      - description: Camera ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Box ID
+        in: query
+        name: box_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Camera'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      summary: Get single camera
+      tags:
+      - cameras
+    put:
+      consumes:
+      - application/json
+      description: Get single camera
+      parameters:
+      - description: Camera ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: UpdateCameraDto
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateCameraDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helpers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Camera'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helpers.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      summary: Get single camera
+      tags:
+      - cameras
+swagger: "2.0"

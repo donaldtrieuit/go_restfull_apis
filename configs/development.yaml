@@ -1,0 +1,27 @@
+server:
+  addr: 0.0.0.0
+  port: 5000
+# Logging
+logging:
+  level: 7
+  log_to_file: false
+  file: ./logs/access_log.%Y%m%d%H%M
+  rotation_max_age: 30
+  rotation_time: 24
+  rotation_size: 50
+
+# api
+api:
+  box_api_base_url: http://localhost:5002/api
+  box_api_secret_key: 123
+
+# database
+db:
+  mysql:
+    username: root
+    password: 123456
+    host: localhost
+    port: 3306
+    dbname: demo
+    showquery: true
+    auto_migrate: false
